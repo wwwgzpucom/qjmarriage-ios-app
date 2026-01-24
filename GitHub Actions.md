@@ -15,12 +15,14 @@ GitHub Actions 是 GitHub 提供的免费 CI/CD 服务，可以在云端的 macO
 
 ## ✅ 当前状态
 
-本项目已配置 GitHub Actions：
+本项目已成功配置 GitHub Actions：
 
 - **仓库地址**：https://github.com/wwwgzpucom/qjmarriage-ios-app
 - **工作流文件**：`.github/workflows/ios-build.yml`
 - **触发条件**：推送到 main 分支或手动触发
-- **构建状态**：访问 [Actions 页面](https://github.com/wwwgzpucom/qjmarriage-ios-app/actions) 查看
+- **构建状态**：✅ 最近构建成功（5分钟）
+- **依赖管理**：使用 Swift Package Manager (SPM)
+- **查看构建**：[Actions 页面](https://github.com/wwwgzpucom/qjmarriage-ios-app/actions)
 
 ---
 
@@ -65,14 +67,18 @@ git push
 
 当前配置的构建步骤：
 
-1. ✅ 检出代码
-2. ✅ 设置 Node.js 环境
-3. ✅ 安装项目依赖
-4. ✅ 构建 Web 资源
-5. ✅ 同步到 iOS
-6. ✅ 安装 CocoaPods 依赖
-7. ✅ 构建 iOS 应用（模拟器版本）
-8. ✅ 上传构建产物
+1. ✅ **检出代码** - 从 GitHub 获取最新代码
+2. ✅ **设置 Node.js 22** - 配置 Node.js 环境（Capacitor 要求）
+3. ✅ **安装项目依赖** - 运行 `npm ci`
+4. ✅ **构建 Web 资源** - 运行 `npm run build`
+5. ✅ **同步到 iOS** - 运行 `npx cap sync ios`
+6. ✅ **检查 Podfile** - 自动检测是否需要 CocoaPods
+7. ⏭️ **跳过 CocoaPods** - 项目使用 SPM，不需要 CocoaPods
+8. ✅ **选择 Xcode** - 配置 Xcode 版本
+9. ✅ **构建 iOS 应用** - 使用 xcodebuild 构建模拟器版本
+10. ✅ **上传构建产物** - 上传 .app 文件供下载
+
+**构建时间**：约 5 分钟
 
 ---
 
@@ -102,6 +108,13 @@ git push
 
 如需修改构建配置，编辑 `.github/workflows/ios-build.yml` 文件。
 
+### 当前配置特点
+
+- ✅ **自动检测依赖管理方式**：支持 CocoaPods 和 SPM
+- ✅ **智能构建**：根据项目配置选择 workspace 或 project
+- ✅ **Node.js 22**：满足 Capacitor 8.x 要求
+- ✅ **禁用代码签名**：模拟器构建不需要签名
+
 ### 示例：只在特定文件变化时构建
 
 ```yaml
@@ -115,14 +128,16 @@ on:
   workflow_dispatch:
 ```
 
-### 示例：添加缓存加速构建
+### 示例：添加构建通知
 
 ```yaml
-- name: Cache npm dependencies
-  uses: actions/cache@v4
-  with:
-    path: ~/.npm
-    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Send success notification
+  if: success()
+  run: echo "✅ 构建成功！"
+
+- name: Send failure notification
+  if: failure()
+  run: echo "❌ 构建失败，请检查日志"
 ```
 
 ---
@@ -232,30 +247,36 @@ jobs:
 
 ## 🐛 常见问题
 
-### Q1: 构建失败：找不到 Xcode
+### Q1: 为什么跳过 CocoaPods？
 
-在工作流中添加：
-```yaml
-- name: Select Xcode version
-  run: sudo xcode-select -s /Applications/Xcode_15.0.app
-```
+**答**：项目使用 Swift Package Manager (SPM)，这是 Capacitor 8.x 的默认方式，不需要 CocoaPods。
 
-### Q2: CocoaPods 安装失败
+### Q2: 构建失败：Node.js 版本问题
 
-```yaml
-- name: Install CocoaPods
-  run: |
-    sudo gem install cocoapods
-    cd ios/App
-    pod install --repo-update
-```
+**答**：Capacitor CLI 需要 Node.js 22+，工作流已配置正确版本。
 
-### Q3: 超出免费额度
+### Q3: 如何下载构建产物？
+
+**答**：
+1. 进入成功的构建任务
+2. 滚动到底部找到 "Artifacts"
+3. 下载 `ios-build.zip`
+4. 解压后在 Mac 模拟器中测试
+
+### Q4: 超出免费额度怎么办？
 
 **解决方案**：
-- 使用手动触发而不是自动构建
-- 减少构建频率
-- 考虑升级 GitHub 计划
+- 使用手动触发而不是每次推送自动构建
+- 合并多个提交后一次性推送
+- 只在重要更新时触发构建
+- 考虑升级 GitHub 计划（如果需要）
+
+### Q5: 构建成功但应用无法运行？
+
+**检查**：
+- 确保在 Mac 上测试
+- 使用 iOS 模拟器（不是真机）
+- 检查 Xcode 版本兼容性
 
 ---
 
@@ -288,10 +309,14 @@ git push --tags    # 触发发布工作流
 
 ## 📝 总结
 
-✅ **项目已配置 GitHub Actions**  
+✅ **项目已成功配置 GitHub Actions**  
+✅ **构建已验证成功**（5分钟完成）  
 ✅ **每次推送自动构建**  
 ✅ **可手动触发构建**  
 ✅ **支持下载构建产物**  
+✅ **使用 Swift Package Manager**  
 ✅ **可扩展为自动上架**  
 
-查看构建状态：https://github.com/wwwgzpucom/qjmarriage-ios-app/actions
+**查看构建状态**：https://github.com/wwwgzpucom/qjmarriage-ios-app/actions
+
+**最近构建**：✅ 成功（2分钟前）
