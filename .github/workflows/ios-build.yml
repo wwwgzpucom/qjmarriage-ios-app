@@ -29,20 +29,19 @@ jobs:
     - name: Sync Capacitor
       run: npx cap sync ios
     
-    - name: Check iOS project structure
+    - name: Check for Podfile
+      id: check_podfile
       run: |
-        echo "Checking iOS project structure..."
-        ls -la ios/
-        ls -la ios/App/
         if [ -f "ios/App/Podfile" ]; then
-          echo "✅ Podfile found"
-          cat ios/App/Podfile
+          echo "has_podfile=true" >> $GITHUB_OUTPUT
+          echo "✅ Podfile found, will use CocoaPods"
         else
-          echo "❌ Podfile not found"
-          exit 1
+          echo "has_podfile=false" >> $GITHUB_OUTPUT
+          echo "ℹ️ No Podfile found, using Swift Package Manager"
         fi
     
-    - name: Install CocoaPods
+    - name: Install CocoaPods dependencies
+      if: steps.check_podfile.outputs.has_podfile == 'true'
       run: |
         cd ios/App
         pod install
@@ -59,14 +58,28 @@ jobs:
     - name: Build iOS app
       run: |
         cd ios/App
-        xcodebuild -workspace App.xcworkspace \
-          -scheme App \
-          -sdk iphonesimulator \
-          -configuration Debug \
-          -derivedDataPath build \
-          CODE_SIGNING_ALLOWED=NO \
-          CODE_SIGN_IDENTITY="" \
-          CODE_SIGNING_REQUIRED=NO
+        # 检查是否使用 CocoaPods (workspace) 或 SPM (project)
+        if [ -f "App.xcworkspace/contents.xcworkspacedata" ]; then
+          echo "Building with workspace (CocoaPods)"
+          xcodebuild -workspace App.xcworkspace \
+            -scheme App \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
+        else
+          echo "Building with project (SPM)"
+          xcodebuild -project App.xcodeproj \
+            -scheme App \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
+        fi
     
     - name: Upload build artifacts
       if: success()
