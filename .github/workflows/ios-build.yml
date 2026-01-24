@@ -29,6 +29,19 @@ jobs:
     - name: Sync Capacitor
       run: npx cap sync ios
     
+    - name: Check iOS project structure
+      run: |
+        echo "Checking iOS project structure..."
+        ls -la ios/
+        ls -la ios/App/
+        if [ -f "ios/App/Podfile" ]; then
+          echo "✅ Podfile found"
+          cat ios/App/Podfile
+        else
+          echo "❌ Podfile not found"
+          exit 1
+        fi
+    
     - name: Install CocoaPods
       run: |
         cd ios/App
