@@ -1,0 +1,10 @@
+{
+  "appId": "com.qjmarriage.app",
+  "appName": "齐家婚姻",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}

@@ -1,0 +1,59 @@
+========================================
+快速上传到 GitHub 命令
+========================================
+
+⚠️ 在运行这些命令之前，请先：
+1. 在 GitHub 上创建仓库：https://github.com/new
+2. 仓库名称：qjmarriage-ios-app
+3. 复制仓库地址
+
+========================================
+第 1 步：配置 Git 用户信息（首次使用）
+========================================
+
+git config --global user.name "你的名字"
+git config --global user.email "你的邮箱@example.com"
+
+
+========================================
+第 2 步：提交代码到本地
+========================================
+
+git add .
+git commit -m "Initial commit: 齐家婚姻 iOS App"
+
+
+========================================
+第 3 步：推送到 GitHub
+========================================
+
+git remote add origin https://github.com/你的用户名/qjmarriage-ios-app.git
+git branch -M main
+git push -u origin main
+
+
+⚠️ 注意：
+- 把 "你的用户名" 替换成你的 GitHub 用户名
+- 推送时需要输入 GitHub Token（不是密码）
+- Token 获取：https://github.com/settings/tokens
+
+
+========================================
+后续更新代码
+========================================
+
+git add .
+git commit -m "更新说明"
+git push
+
+
+========================================
+查看构建状态
+========================================
+
+1. 访问：https://github.com/你的用户名/qjmarriage-ios-app
+2. 点击 "Actions" 标签
+3. 查看自动构建进度
+
+
+详细说明请查看：上传到GitHub步骤.md
