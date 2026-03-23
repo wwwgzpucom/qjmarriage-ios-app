@@ -1,0 +1,29 @@
+GitHub Secrets 配置清单
+========================
+
+进入仓库：https://github.com/wwwgzpucom/qjmarriage-ios-app
+路径：Settings → Secrets and variables → Actions → New repository secret
+
+需要添加的 6 个 Secrets：
+
+1. IOS_CERTIFICATE_BASE64
+   值：见《上架AppStore指南.md》中的完整 Base64 字符串
+
+2. IOS_CERTIFICATE_PASSWORD
+   值：123456
+
+3. IOS_PROVISIONING_PROFILE_BASE64
+   值：见《上架AppStore指南.md》中的完整 Base64 字符串
+
+4. APPLE_TEAM_ID
+   值：G92BYM7L95
+
+5. APPLE_ID
+   值：wmxnnq@163.com
+
+6. APPLE_APP_SPECIFIC_PASSWORD
+   值：hyiq-qaye-dswv-evqx
+
+---
+
+配置完成后，推送代码到 main 分支即可触发自动构建和上传到 App Store Connect。
