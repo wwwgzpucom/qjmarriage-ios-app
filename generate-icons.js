@@ -47,6 +47,7 @@ async function generateIcons() {
           fit: 'cover',
           position: 'center'
         })
+        .flatten({ background: '#FFFFFF' })  // 添加白色背景，移除透明通道
         .png()
         .toFile(outputPath);
       

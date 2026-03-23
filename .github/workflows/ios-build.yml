@@ -26,6 +26,9 @@ jobs:
     - name: Build web assets
       run: npm run build
     
+    - name: Generate iOS icons
+      run: npm run generate-icons
+    
     - name: Sync Capacitor
       run: npx cap sync ios
     
