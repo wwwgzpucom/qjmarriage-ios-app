@@ -6,6 +6,11 @@
 	<string>app-store</string>
 	<key>teamID</key>
 	<string>G92BYM7L95</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.qjmarriage.app</key>
+		<string>2f450efd-0041-47e0-b8a5-23811f2879a4</string>
+	</dict>
 	<key>uploadBitcode</key>
 	<false/>
 	<key>uploadSymbols</key>
