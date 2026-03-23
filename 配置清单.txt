@@ -27,3 +27,5 @@ GitHub Secrets 配置清单
 ---
 
 配置完成后，推送代码到 main 分支即可触发自动构建和上传到 App Store Connect。
+
+最后更新：2026-03-23
