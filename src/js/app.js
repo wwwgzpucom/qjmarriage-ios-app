@@ -1,7 +1,7 @@
 // 简单的 WebView 应用逻辑
 
 // 配置你的网站地址
-const WEBSITE_URL = 'https://qjmarriage.com';
+const WEBSITE_URL = 'https://qjmarriage.com/m/index.php';
 
 // 获取元素
 const webview = document.getElementById('webview');
