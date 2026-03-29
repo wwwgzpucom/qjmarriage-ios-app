@@ -1,12 +1,8 @@
 {
-  "name": "capacitor-app",
+  "name": "qjmarriage-app",
   "version": "1.0.0",
-  "description": "An Amazing Capacitor App",
+  "description": "齐家婚姻",
   "type": "module",
-  "keywords": [
-    "capacitor",
-    "mobile"
-  ],
   "scripts": {
     "start": "vite",
     "build": "vite build",
@@ -14,19 +10,12 @@
     "generate-icons": "node generate-icons.js"
   },
   "dependencies": {
-    "@capacitor/camera": "latest",
     "@capacitor/core": "latest",
-    "@capacitor/ios": "^8.0.1",
-    "@capacitor/splash-screen": "latest",
-    "@capacitor/share": "latest",
-    "@capacitor/haptics": "latest",
-    "@capacitor/status-bar": "latest"
+    "@capacitor/ios": "latest"
   },
   "devDependencies": {
     "@capacitor/cli": "latest",
     "sharp": "^0.34.5",
     "vite": "^5.4.2"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }

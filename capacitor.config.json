@@ -1,14 +1,5 @@
 {
   "appId": "com.qjmarriage.app",
   "appName": "齐家婚姻",
-  "webDir": "dist",
-  "plugins": {
-    "SplashScreen": {
-      "launchAutoHide": false,
-      "launchShowDuration": 2000,
-      "backgroundColor": "#ffffff",
-      "showSpinner": true,
-      "spinnerColor": "#31d53d"
-    }
-  }
+  "webDir": "dist"
 }
