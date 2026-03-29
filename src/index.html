@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>齐家婚姻</title>
+    
+    <!-- 立即重定向到网站 -->
+    <meta http-equiv="refresh" content="0; url=https://qjmarriage.com/m/index.php" />
+    
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -23,29 +27,11 @@
         height: 100%;
         overflow: hidden;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      }
-      
-      #app {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-      
-      #webview-container {
-        flex: 1;
-        position: relative;
-        overflow: hidden;
-      }
-      
-      #webview {
-        width: 100%;
-        height: 100%;
-        border: none;
+        background: #ffffff;
       }
       
       #loading {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
@@ -55,7 +41,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        z-index: 9999;
       }
       
       .spinner {
@@ -73,39 +58,36 @@
         100% { transform: rotate(360deg); }
       }
       
-      #loading.hidden {
-        display: none;
+      .loading-text {
+        color: #666;
+        font-size: 16px;
       }
       
-      .error-message {
-        color: #ff3b30;
-        padding: 20px;
-        text-align: center;
-      }
-      
-      .retry-button {
-        margin-top: 20px;
-        padding: 10px 30px;
+      .fallback-link {
+        margin-top: 30px;
+        padding: 12px 30px;
         background: #31d53d;
         color: white;
-        border: none;
+        text-decoration: none;
         border-radius: 8px;
         font-size: 16px;
-        cursor: pointer;
       }
     </style>
+    
+    <script>
+      // JavaScript 备用重定向
+      setTimeout(function() {
+        window.location.href = 'https://qjmarriage.com/m/index.php';
+      }, 100);
+    </script>
   </head>
   <body>
-    <div id="app">
-      <div id="loading">
-        <div class="spinner"></div>
-        <p>正在加载...</p>
-      </div>
-      <div id="webview-container">
-        <iframe id="webview" allow="camera; microphone; geolocation"></iframe>
-      </div>
+    <div id="loading">
+      <div class="spinner"></div>
+      <p class="loading-text">正在加载齐家婚姻...</p>
+      <a href="https://qjmarriage.com/m/index.php" class="fallback-link">
+        点击这里进入
+      </a>
     </div>
-
-    <script type="module" src="./js/app.js"></script>
   </body>
 </html>
