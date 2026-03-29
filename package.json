@@ -17,7 +17,10 @@
     "@capacitor/camera": "latest",
     "@capacitor/core": "latest",
     "@capacitor/ios": "^8.0.1",
-    "@capacitor/splash-screen": "latest"
+    "@capacitor/splash-screen": "latest",
+    "@capacitor/share": "latest",
+    "@capacitor/haptics": "latest",
+    "@capacitor/status-bar": "latest"
   },
   "devDependencies": {
     "@capacitor/cli": "latest",
